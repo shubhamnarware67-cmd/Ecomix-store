@@ -52,6 +52,84 @@ for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
 }
 
 
+
+// login 
+
+let isLogin = true;
+
+const userBtn = document.getElementById("userBtn");
+const authModal = document.getElementById("authModal");
+const closeAuth = document.getElementById("closeAuth");
+const authTitle = document.getElementById("authTitle");
+const nameField = document.getElementById("name");
+const dropdown = document.getElementById("profileDropdown");
+
+// Page load check
+window.onload = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) showUser(user.name);
+};
+
+// Profile button click
+userBtn.onclick = () => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  } else {
+    authModal.style.display = "flex";
+  }
+};
+
+// Close modal
+closeAuth.onclick = () => authModal.style.display = "none";
+
+// Toggle Login / Signup
+function toggleAuth() {
+  isLogin = !isLogin;
+  authTitle.innerText = isLogin ? "Login" : "Sign Up";
+  nameField.style.display = isLogin ? "none" : "block";
+  document.querySelector(".auth-btn").innerText = isLogin ? "Login" : "Sign Up";
+}
+
+// Handle Login / Signup
+function handleAuth() {
+  const name = nameField.value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password || (!isLogin && !name)) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  if (isLogin) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.email === email && user.password === password) {
+      showUser(user.name);
+      authModal.style.display = "none";
+    } else {
+      alert("Invalid credentials");
+    }
+  } else {
+    localStorage.setItem("user", JSON.stringify({ name, email, password }));
+    alert("Signup Successful");
+    toggleAuth();
+  }
+}
+
+// Show user after login
+function showUser(name) {
+  document.getElementById("userName").innerText = name;
+  document.getElementById("dropdownName").innerText = "Hi, " + name;
+}
+
+// Logout
+function logout() {
+  localStorage.removeItem("user");
+  location.reload();
+}
+
+
 // accordion variables
 const accordionBtn = document.querySelectorAll('[data-accordion-btn]');
 const accordion = document.querySelectorAll('[data-accordion]');
