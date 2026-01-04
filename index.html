@@ -173,7 +173,7 @@
           <select name="language">
 
             <option value="en-US">English</option>
-            <option value="es-ES">Espa&ntilde;ol</option>
+            <option value="es-ES">Hindi&ntilde;ol</option>
             <option value="fr">Fran&ccedil;ais</option>
 
           </select>
@@ -204,9 +204,42 @@
 
         <div class="header-user-actions">
 
-          <button class="action-btn">
-            <ion-icon name="person-outline"></ion-icon>
-          </button>
+          <!-- PROFILE WRAPPER -->
+          <div class="profile-wrapper">
+
+            <!-- Profile Button -->
+            <button class="action-btn" id="userBtn">
+              <ion-icon name="person-outline"></ion-icon>
+              <span id="userName" class="user-name"></span>
+            </button>
+
+            <!-- PROFILE DROPDOWN -->
+            <div class="profile-dropdown" id="profileDropdown">
+              <p id="dropdownName"></p>
+              <button onclick="logout()">Logout</button>
+            </div>
+          </div>
+
+          <!-- LOGIN / SIGNUP MODAL -->
+          <div class="auth-modal" id="authModal">
+            <div class="auth-box">
+              <span class="close-btn" id="closeAuth">&times;</span>
+
+              <h2 id="authTitle">Login</h2>
+
+              <input type="text" id="name" placeholder="Full Name" style="display:none">
+              <input type="email" id="email" placeholder="Email">
+              <input type="password" id="password" placeholder="Password">
+
+              <button class="auth-btn" onclick="handleAuth()">Login</button>
+
+              <p class="switch-text">
+                Don’t have an account?
+                <span onclick="toggleAuth()">Sign Up</span>
+              </p>
+            </div>
+          </div>
+
 
           <button class="action-btn">
             <ion-icon name="heart-outline"></ion-icon>
